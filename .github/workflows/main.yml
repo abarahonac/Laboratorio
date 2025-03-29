@@ -16,9 +16,17 @@ jobs:
     - name: Checkout código
       uses: actions/checkout@v2
 
-    - name: Construir imagen Docker
+    - name: Verificar Docker
+      run: |
+        docker --version
+        docker info
+
+    - name: Crear Dockerfile
       run: |
         echo -e 'FROM alpine:latest\nRUN echo "Hola Mundo"' > Dockerfile
+
+    - name: Construir imagen Docker
+      run: |
         docker build -t hola-mundo .
 
     - name: Ejecutar contenedor Docker
