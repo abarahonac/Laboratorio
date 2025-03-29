@@ -1,0 +1,26 @@
+name: Imprimir Hola Mundo usando Docker
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  print_message:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout código
+      uses: actions/checkout@v2
+
+    - name: Construir imagen Docker
+      run: |
+        echo -e 'FROM alpine:latest\nRUN echo "Hola Mundo"' > Dockerfile
+        docker build -t hola-mundo .
+
+    - name: Ejecutar contenedor Docker
+      run: |
+        docker run --rm hola-mundo
